@@ -5,12 +5,12 @@ The goal of this project is to build an end-to-end data pipeline that securely c
 
 ![image](https://github.com/user-attachments/assets/2c26e33a-a44d-456c-99e2-1f0472ed45ab)
 
-# Access Airflow 
-Airflow is in a virtual environment on EC2 instance. Once airflow is installed, it gives user credentials to login to airflow.
+# Accessing Airflow 
+Airflow is installed on an EC2 instance within a virtual environment. Once airflow is installed, it gives user credentials to login to airflow.
 
 ![image](https://github.com/user-attachments/assets/9b9d445a-d95e-4950-9a02-a170d1720710)
 
-Airflow can be launched with "instance-ipaddress":8080 (or a port that is configured in inbound rules)
+Airflow can be launched with `http://<EC2-Instance-IP>:8080` (or a port that is configured in inbound rules)
 
 ![image](https://github.com/user-attachments/assets/5313922e-9e13-475e-a3f7-380c994b9458)
 
@@ -22,10 +22,10 @@ Airflow can be launched with "instance-ipaddress":8080 (or a port that is config
 ![image](https://github.com/user-attachments/assets/5d1bd832-0799-4559-8b0d-d9457784d34f)
 
 # DAG Overview
-- Extract Data: Fetch property listing data from the Zillow API.
-- Load Data to S3: Upload the extracted JSON data to an S3 bucket for storage.
-- Check File Presence in S3: Ensure that the file has been successfully uploaded to S3.
-- Transfer Data to Redshift: Load the data from S3 into an Amazon Redshift table for further querying and analysis.
+- **Extract Data**: Fetch property listing data from the Rapid API.
+- **Load Data to S3**: Upload the extracted JSON data to an S3 bucket for storage.
+- **Check File Presence in S3**: Ensure that the file has been successfully uploaded to S3.
+- **Transfer Data to Redshift**: Load the data from S3 into an Amazon Redshift table for further querying and analysis.
 The workflow is orchestrated by Apache Airflow, which provides a rich set of features for scheduling, monitoring, and managing the tasks involved in the data pipeline.
 
 # Configuration
@@ -50,12 +50,20 @@ The tasks are connected using the >> operator to define their execution order:
 ![image](https://github.com/user-attachments/assets/1a4533f6-7787-40f8-81af-ec6f9692ae9b)
 
 # Error Handling
-Errors can occur frequently, while setting up the DAGs, even with slight a blank space during configurations.
+### Common Issues
+1. **DAG Configuration**:
+   - Ensure proper syntax; even minor errors like extra spaces can break configurations.
+2. **AWS Credentials**:
+   - Verify IAM roles, policies, and credentials on the EC2 instance.
+3. **API Issues**:
+   - Check API key validity and usage limits.
+
 ![image](https://github.com/user-attachments/assets/bbe511b6-1c15-4fa6-9213-6d207be7d70d)
 
 - **Retry Logic**: The task retries have been disabled (retries=0) to prevent any automatic retries in case of failure.
 
 - **Notifications**: Email notifications will be sent in case of failure or retry (if configured).
 
-
+## Conclusion
+This project provides a scalable and automated solution for extracting, transforming, and analyzing data using AWS services and Apache Airflow.
   
