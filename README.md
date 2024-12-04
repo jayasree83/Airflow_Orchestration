@@ -10,7 +10,7 @@ Airflow is in a virtual environment on EC2 instance. Once airflow is installed, 
 
 ![image](https://github.com/user-attachments/assets/9b9d445a-d95e-4950-9a02-a170d1720710)
 
-Airflow can be launched with "instance-ipaddress":8080
+Airflow can be launched with "instance-ipaddress":8080 (or a port that is configured in inbound rules)
 
 ![image](https://github.com/user-attachments/assets/5313922e-9e13-475e-a3f7-380c994b9458)
 
@@ -29,17 +29,17 @@ Airflow can be launched with "instance-ipaddress":8080
 The workflow is orchestrated by Apache Airflow, which provides a rich set of features for scheduling, monitoring, and managing the tasks involved in the data pipeline.
 
 # Configuration
-1. API Configuration
+1. **API Configuration**
 - The api_config.json file should contain your API key and host for the Rapid API. It will be used to authenticate API requests.
-2. IAM
+2. **IAM**
 - IAM users, roles, policies must be defined and assigned properly between AWS services
-3. AWS S3
+3. **AWS S3**
 - Ensure AWS credentials are configured on the machine or EC2 instance where this DAG is running. You can use the aws configure command or set up an IAM role with the necessary permissions.
-4. AWS Redshift
+4. **AWS Redshift**
 - Ensure a Redshift cluster is set up and that the necessary AWS Redshift connection is configured in Airflow (conn_id_redshift).
-5. AWS EC2 
-- EC2 instance (T2 Medium) is required for setting up airflow. Other smaller instances do not support Airflow.
-6. AWS Lambda
+5. **AWS EC2** 
+- EC2 instance (**T2 Medium**) is required for setting up airflow. Other smaller instances do not support Airflow.
+6. **AWS Lambda**
 - All the Lambda functions in between need proper configurations and triggers set up. Pandas Layer might be needed explicitly that can be set up from Lambda configurations.
   
   ![image](https://github.com/user-attachments/assets/9fdc55e6-d2dd-48ef-aa2a-bbf11847f4b9)
@@ -52,6 +52,9 @@ The tasks are connected using the >> operator to define their execution order:
 # Error Handling
 Errors can occur frequently, while setting up the DAGs, even with slight a blank space during configurations.
 ![image](https://github.com/user-attachments/assets/bbe511b6-1c15-4fa6-9213-6d207be7d70d)
+
+**Retry Logic**: The task retries have been disabled (retries=0) to prevent any automatic retries in case of failure.
+**Notifications**: Email notifications will be sent in case of failure or retry (if configured).
 
 
   
