@@ -53,8 +53,9 @@ The tasks are connected using the >> operator to define their execution order:
 Errors can occur frequently, while setting up the DAGs, even with slight a blank space during configurations.
 ![image](https://github.com/user-attachments/assets/bbe511b6-1c15-4fa6-9213-6d207be7d70d)
 
-**Retry Logic**: The task retries have been disabled (retries=0) to prevent any automatic retries in case of failure.
-**Notifications**: Email notifications will be sent in case of failure or retry (if configured).
+- **Retry Logic**: The task retries have been disabled (retries=0) to prevent any automatic retries in case of failure.
+
+- **Notifications**: Email notifications will be sent in case of failure or retry (if configured).
 
 
   
